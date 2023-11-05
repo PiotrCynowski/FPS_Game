@@ -11,8 +11,6 @@ In main scene there are prefabs for:
 *with moving platforms, encapsulated*
 *powerups, encapsulated*
 
-script have reference to biomes - scriptable objects with tile references for spawning ground and trees, also setting for chance to spawn and biom noise map
-
 #### - Player
 *with movement and interactions scripts*
 
