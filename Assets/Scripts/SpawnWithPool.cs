@@ -14,7 +14,6 @@ namespace PoolSpawner
 
         private readonly Dictionary<int, ObjectPool<T>> poolObjList = new();
 
-
         public void AddPoolForGameObject(GameObject _toSpawn, int _id)
         {
             if (elementsContainer == null)
@@ -52,12 +51,10 @@ namespace PoolSpawner
             return poolObjList[_id].Get();
         }
 
-
         private void ThisObjReleased(T _obj, int _id)
         {
             poolObjList[_id].Release(_obj);
         }
-
 
         #region poolOperations
         private void OnReturnedToPool(T system)
@@ -71,14 +68,12 @@ namespace PoolSpawner
             system.gameObject.SetActive(true);
         }
 
-        // If the pool capacity is reached then any items returned will be destroyed.
         private void OnDestroyPoolObject(T system)
         {
             GameObject.Destroy(system.gameObject);
         }
         #endregion  
     }
-
 
     public interface IPoolable<T> where T : Component
     {

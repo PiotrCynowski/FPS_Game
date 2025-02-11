@@ -14,7 +14,6 @@ public class MapMovingPlatform : MonoBehaviour, ICanParentPlayer
       Vertical,
     }
 
-
     private void Start()
     {
         startPosition = transform.position;
