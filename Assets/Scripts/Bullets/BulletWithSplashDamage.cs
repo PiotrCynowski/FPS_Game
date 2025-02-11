@@ -7,6 +7,11 @@ namespace Bullets
         [SerializeField] private float speed = 5f;
         [SerializeField] private float splashRadius = 2f;
 
+        private void Update()
+        {
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        }
+
         protected override void OnHitTarget(GameObject _target = null)
         {
             Collider[] hits = Physics.OverlapSphere(transform.position, splashRadius);
@@ -19,11 +24,6 @@ namespace Bullets
                 }
             }
             ReturnToPool();
-        }
-
-        private void Update()
-        {
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
     }
 }

@@ -11,7 +11,6 @@ namespace Enemies
         [SerializeField] private float avoidDistance = 2f;
         [SerializeField] private LayerMask obstacleLayer;
 
-
         private void FixedUpdate()
         {
             if (Vector3.Distance(transform.position, targetPosition) < 1f)
@@ -28,7 +27,6 @@ namespace Enemies
 
             transform.position += direction * speed * Time.fixedDeltaTime;
         }
-
 
         private Vector3 GetRandomDestination()
         {
