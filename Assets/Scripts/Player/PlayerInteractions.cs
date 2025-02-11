@@ -10,7 +10,6 @@ namespace Player
         public delegate void OnPowerupMovementBoost(int _puDuration);
         public static event OnPowerupMovementBoost onMovementBoost;
 
-
         public void OnTriggerEnter(Collider _other)
         {
 
@@ -51,7 +50,6 @@ namespace Player
     }
 }
 
-
 interface ICanParentPlayer { }
 
 interface IAmPowerup 
@@ -59,4 +57,3 @@ interface IAmPowerup
     int powerDuration { get; }
     typeOfPowerup PowerUpType();
 }
-

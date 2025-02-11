@@ -42,6 +42,10 @@ namespace Player
         private float powerupMultiply;
         private float powerupDivide;
 
+        private void OnEnable()
+        {
+            PlayerInteractions.onMovementBoost += EnablePowerup;
+        }
 
         private void Start()
         {
@@ -73,19 +77,10 @@ namespace Player
             MovePlayer();
         }
 
-
-        #region enable/disable
-        private void OnEnable()
-        {
-            PlayerInteractions.onMovementBoost += EnablePowerup;
-        }
-
         private void OnDisable()
         {
             PlayerInteractions.onMovementBoost -= EnablePowerup;
         }
-        #endregion
-
 
         public void ReceiveInput(Vector2 _horizontalInput)
         {
@@ -100,7 +95,6 @@ namespace Player
                 rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
             }
         }
-
 
         #region PowerUp
         private void EnablePowerup(int _addTimeToPuDuration)
@@ -130,7 +124,6 @@ namespace Player
             AbyssDistanceCheck *= 0.5f;
         }
         #endregion
-
 
         #region player ground move
         private void MovePlayer()

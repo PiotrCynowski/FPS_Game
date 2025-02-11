@@ -18,8 +18,10 @@ namespace Player
         private float weaponBoostDuration;
         private Coroutine weaponBoost;
 
-
-
+        private void OnEnable()
+        {
+            PlayerInteractions.onWeaponBoost += EnablePowerup;
+        }
         private void Start()
         {
             poolSpawner = new SpawnWithPool<Bullet>();
@@ -27,18 +29,10 @@ namespace Player
             poolSpawner.AddPoolForGameObject(slowBulletPrefab.gameObject, 2);
         }
 
-
-        #region enable/disable
-        private void OnEnable()
-        {
-            PlayerInteractions.onWeaponBoost += EnablePowerup;
-        }
-
         private void OnDisable()
         {
             PlayerInteractions.onWeaponBoost -= EnablePowerup;
         }
-        #endregion
 
         public void ShotLeftMouseButton()
         {
@@ -49,7 +43,6 @@ namespace Player
         {
             ShootSlowBullet();
         }
-
 
         private void ShootFastBullet()
         {
@@ -72,7 +65,6 @@ namespace Player
 
             poolSpawner.Spawn(gunTransform, 2);
         }
-
 
         #region PowerUp
         private void EnablePowerup(int _addTimeToPuDuration)
