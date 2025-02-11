@@ -13,20 +13,17 @@ namespace Player
         private float xRotation = 0f;
         private Vector3 targetRotation;
 
-
         private void Update()
         {
             transform.Rotate(Vector3.up, mouseX * Time.deltaTime);
             LimitViewAngle(); 
         }
 
-
         public void ReceiveInput(Vector2 _mouseIn)
         {
             mouseX = _mouseIn.x * sensitivityX;
             mouseY = _mouseIn.y * sensitivityY;
         }
-
 
         private void LimitViewAngle()
         {

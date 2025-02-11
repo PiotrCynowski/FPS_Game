@@ -16,6 +16,5 @@ public class PowerUpObj : MonoBehaviour, IAmPowerup
     }
 }
 
-
 public enum typeOfPowerup { forWeapon, forPlayerMovement };
 

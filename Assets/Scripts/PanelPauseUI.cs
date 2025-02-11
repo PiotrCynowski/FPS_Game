@@ -8,29 +8,29 @@ namespace UI.Elements
     public class PanelPauseUI : MonoBehaviour
     {
         [SerializeField] private Button buttonBackFromPause;
+        [SerializeField] private Button buttonRestart;
         [SerializeField] private Button buttonExitApp;
 
         [SerializeField] private GameObject panelPause;
         public static Action OnPlayerPauseMenuOff;
+        public static Action OnPlayerRestart;
+
+        private void OnEnable()
+        {
+            InputManager.onPlayerEscButton += PauseGame;
+        }
 
         private void Start()
         {
             buttonBackFromPause.onClick.AddListener(() => BackFromPause());
+            buttonRestart.onClick.AddListener(() => RestartGame());
             buttonExitApp.onClick.AddListener(() => ExitGame());
-        }
-
-        #region enable/disable
-        private void OnEnable()
-        {
-            InputManager.onPlayerEscButton += PauseGame;
         }
 
         private void OnDisable()
         {
             InputManager.onPlayerEscButton -= PauseGame;
         }
-        #endregion
-
 
         private void PauseGame()
         {
@@ -44,6 +44,12 @@ namespace UI.Elements
             Time.timeScale = 1;
 
             OnPlayerPauseMenuOff?.Invoke();
+        }
+
+        private void RestartGame()
+        {
+            BackFromPause();
+            OnPlayerRestart?.Invoke();
         }
 
         private void ExitGame()

@@ -21,6 +21,13 @@ namespace Enemies
         private int id;
         public int arenaId;
 
+        public virtual void OnEnable()
+        {
+            startArenaPos = transform.position;
+
+            currentHealth = MaxHealth;
+            UpdateColor();
+        }
 
         private void Awake()
         {    
@@ -36,16 +43,6 @@ namespace Enemies
             UpdateColor();      
         }
 
-
-        public virtual void OnEnable()
-        {
-            startArenaPos = transform.position;
-
-            currentHealth = MaxHealth;          
-            UpdateColor();
-        }
-
-
         public void TakeDamage(int _damage)
         {
             currentHealth -= _damage;
@@ -57,7 +54,6 @@ namespace Enemies
             }
         }
 
-     
         #region pool
         public void Initialize(Action<Enemy, int> _returnAction, int _id)
         {

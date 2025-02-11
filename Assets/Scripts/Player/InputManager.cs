@@ -38,6 +38,11 @@ namespace GameInput
             PanelPauseUI.OnPlayerPauseMenuOff += EnableControlls;
         }
 
+        private void OnEnable()
+        {
+            controls.Enable();
+        }
+
         private void Update()
         {
             movement.ReceiveInput(horizontalInput);
@@ -46,19 +51,10 @@ namespace GameInput
             Debug.Log(mouseInput);
         }
 
-
-        #region enable/disable
-        private void OnEnable()
-        {
-            controls.Enable();
-        }
-
         private void OnDisable()
         {
             controls.Disable();
         }
-        #endregion
-
 
         private void EscapeButtonPerformed()
         {

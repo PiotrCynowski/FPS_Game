@@ -24,7 +24,11 @@ namespace Enemies {
         private int nextSpawnerIndex;
         private int numEnemies = 0;
 
-       
+        private void OnEnable()
+        {
+            Enemy.onArenaClear += DecrementNumEnemies;
+        }
+
         private void Start()
         {
             poolSpawner = new SpawnWithPool<Enemy>();
@@ -42,19 +46,10 @@ namespace Enemies {
             StartSpawn();
         }
 
-
-        #region enable/disable
-        private void OnEnable()
-        {            
-            Enemy.onArenaClear += DecrementNumEnemies;
-        }
-
         private void OnDisable()
         {
             Enemy.onArenaClear -= DecrementNumEnemies;
         }
-        #endregion
-   
 
         private void StartSpawn()
         {
@@ -111,7 +106,6 @@ namespace Enemies {
 
             numEnemies--;
         }
-
 
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()

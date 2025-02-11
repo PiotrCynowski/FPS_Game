@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using System;
+using UI.Elements;
 
 namespace Player
 {
@@ -16,6 +17,7 @@ namespace Player
         private Vector3 moveDirection;
         private Vector3 slopeMoveDirection;
         private Vector3 detectAbyssPos;
+        private readonly string savedPlayerPositionKey = "playerPosition";
 
         private PlayerState stateOfPlayer;
 
@@ -42,6 +44,11 @@ namespace Player
         private float powerupMultiply;
         private float powerupDivide;
 
+        private void OnEnable()
+        {
+            PlayerInteractions.onMovementBoost += EnablePowerup;
+            PanelPauseUI.OnPlayerRestart += ResetPlayerPosition;
+        }
 
         private void Start()
         {
@@ -54,6 +61,9 @@ namespace Player
             powerupDivide = 1 / powerupMultiply;
 
             stateOfPlayer = new PlayerState();
+
+            Vector3 playerPos = transform.position;
+            PlayerPrefs.SetString(savedPlayerPositionKey, $"{playerPos.x},{playerPos.y},{playerPos.z}");
         }
 
         private void Update()
@@ -73,19 +83,11 @@ namespace Player
             MovePlayer();
         }
 
-
-        #region enable/disable
-        private void OnEnable()
-        {
-            PlayerInteractions.onMovementBoost += EnablePowerup;
-        }
-
         private void OnDisable()
         {
             PlayerInteractions.onMovementBoost -= EnablePowerup;
+            PanelPauseUI.OnPlayerRestart -= ResetPlayerPosition;
         }
-        #endregion
-
 
         public void ReceiveInput(Vector2 _horizontalInput)
         {
@@ -100,7 +102,6 @@ namespace Player
                 rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
             }
         }
-
 
         #region PowerUp
         private void EnablePowerup(int _addTimeToPuDuration)
@@ -131,8 +132,21 @@ namespace Player
         }
         #endregion
 
-
         #region player ground move
+        private void ResetPlayerPosition()
+        {
+            if (!PlayerPrefs.HasKey(savedPlayerPositionKey)) return;
+
+            string[] values = PlayerPrefs.GetString(savedPlayerPositionKey).Split(',');
+            if (values.Length == 3 &&
+                float.TryParse(values[0], out float x) &&
+                float.TryParse(values[1], out float y) &&
+                float.TryParse(values[2], out float z))
+            {
+                transform.position = new Vector3(x, y, z);
+            }
+        }
+
         private void MovePlayer()
         {
             isSlope = DetectSlope();

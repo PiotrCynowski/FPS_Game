@@ -16,6 +16,22 @@ namespace Bullets
         private Action<Bullet, int> returnToPool;
         private int id;
 
+        private void OnEnable()
+        {
+            if (returnCoroutine != null)
+            {
+                StopCoroutine(returnCoroutine);
+            }
+            returnCoroutine = StartCoroutine(ReturnToPoolAfterDelay());
+        }
+
+        private void OnDisable()
+        {
+            if (returnCoroutine != null)
+            {
+                StopCoroutine(returnCoroutine);
+            }
+        }
 
         protected virtual void OnTriggerEnter(Collider _other)
         {
@@ -26,7 +42,6 @@ namespace Bullets
         }
 
         protected abstract void OnHitTarget(GameObject _target);
-
 
         #region pool
         public void Initialize(Action<Bullet, int> _returnAction, int _id)
@@ -44,26 +59,6 @@ namespace Bullets
         {
             yield return new WaitForSeconds(lifeTime);
             ReturnToPool();
-        }
-        #endregion
-
-
-        #region enable/disable
-        private void OnEnable()
-        {
-            if (returnCoroutine != null)
-            {
-                StopCoroutine(returnCoroutine);
-            }
-            returnCoroutine = StartCoroutine(ReturnToPoolAfterDelay());
-        }
-
-        private void OnDisable()
-        {
-            if (returnCoroutine != null)
-            {
-                StopCoroutine(returnCoroutine);
-            }
         }
         #endregion
     }
