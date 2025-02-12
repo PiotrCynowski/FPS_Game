@@ -6,20 +6,19 @@ namespace Enemies
 {
     public abstract class Enemy : MonoBehaviour, IDamageable, IPoolable<Enemy>
     {
-        public abstract int MaxHealth { get; }
-
+        public int MaxHealth;
         private int currentHealth;
         private Renderer renderer;
         private MaterialPropertyBlock propertyBlock;
 
-        public Vector3 startArenaPos;
-        public Vector3 targetPosition;
+        [HideInInspector] public Vector3 startArenaPos;
+        [HideInInspector] public Vector3 targetPosition;
 
         private Action<Enemy, int> onReturnToPool;
         public static Action<int> onArenaClear;
 
-        private int id;
-        public int arenaId;
+        [HideInInspector] private int id;
+        [HideInInspector] public int arenaId;
 
         public virtual void OnEnable()
         {

@@ -4,8 +4,6 @@ namespace Enemies
 {
     public class EnemyTypeSoldier : Enemy
     {
-        public override int MaxHealth => 200;
-
         [SerializeField] private float speed = 5f;
         [SerializeField] private float wanderDistance = 10f;
         [SerializeField] private float avoidDistance = 2f;

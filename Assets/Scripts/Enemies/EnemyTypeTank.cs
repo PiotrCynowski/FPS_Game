@@ -5,8 +5,6 @@ namespace Enemies
 {
     public class EnemyTypeTank : Enemy
     {
-        public override int MaxHealth => 500;
-
         [SerializeField] private float speed = 2f;
         [SerializeField] private float wanderDistance = 5f;
         [SerializeField] private float waitTime = 2f;

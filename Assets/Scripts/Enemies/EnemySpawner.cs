@@ -14,14 +14,13 @@ namespace Enemies {
 
         [SerializeField] private Enemy[] toSpawn;
 
-        [SerializeField] private List<Transform> spawnPoints = new List<Transform>();
-        private List<Transform> emptyAreaSpawn = new List<Transform>();
+        [SerializeField] private List<Transform> spawnPoints = new();
+        private Queue<int> emptySpawnPointsIndex = new();
 
         private SpawnWithPool<Enemy> poolSpawner;
         private System.Random rnd;
 
         private int numberOfEnemyTypes;
-        private int nextSpawnerIndex;
         private int numEnemies = 0;
 
         private void OnEnable()
@@ -36,7 +35,10 @@ namespace Enemies {
 
             numberOfEnemyTypes = toSpawn.Length;
 
-            emptyAreaSpawn.AddRange(spawnPoints);
+            for (int i = 0; i < spawnPoints.Count; i++)
+            {
+                emptySpawnPointsIndex.Enqueue(i);
+            }
 
             for (int i = 0; i < numberOfEnemyTypes; i++)
             {
@@ -53,57 +55,43 @@ namespace Enemies {
 
         private void StartSpawn()
         {
-            int nextSpawnPoints;
-            int limitSpawnBySpawnerNumbers = emptyAreaSpawn.Count;
-
             for (int i = 0; i < maxAllowedEnemiesAtOnce; i++)
             {
-                if(i >= limitSpawnBySpawnerNumbers)
+                if(i >= spawnPoints.Count)
                 {
                     break;
                 }
 
-                nextSpawnPoints = rnd.Next(0, emptyAreaSpawn.Count);
-
-                poolSpawner.GetSpawnObject(emptyAreaSpawn[nextSpawnPoints], rnd.Next(0, numberOfEnemyTypes))
-                     .arenaId = spawnPoints.IndexOf(emptyAreaSpawn[nextSpawnerIndex]);
-
-                emptyAreaSpawn.Remove(emptyAreaSpawn[nextSpawnPoints]);
-
-                numEnemies++;
+                SpawnEnemyInEmptyArea();
             }
-
-            StartCoroutine(SpawnEnemies());
         }
 
         private IEnumerator SpawnEnemies()
         {
-            while (true)
+            yield return new WaitForSeconds(spawnInterval);
+            if (numEnemies < maxAllowedEnemiesAtOnce && emptySpawnPointsIndex.Count != 0)
             {
-                if (numEnemies < maxAllowedEnemiesAtOnce && emptyAreaSpawn.Count !=0)
-                {
-                    SpawnEnemyInEmptyArea();  
-                }
-                yield return new WaitForSeconds(spawnInterval);
+                SpawnEnemyInEmptyArea();
             }
         }
 
         private void SpawnEnemyInEmptyArea()
         {
-            nextSpawnerIndex = rnd.Next(0, emptyAreaSpawn.Count);
+            if (emptySpawnPointsIndex.Count == 0)
+                return;
 
-            poolSpawner.GetSpawnObject(emptyAreaSpawn[nextSpawnerIndex], rnd.Next(0, numberOfEnemyTypes))
-                .arenaId = spawnPoints.IndexOf(emptyAreaSpawn[nextSpawnerIndex]);
+            int nextSpawnerIndex = emptySpawnPointsIndex.Dequeue();
 
-            emptyAreaSpawn.Remove(emptyAreaSpawn[nextSpawnerIndex]);
+            poolSpawner.GetSpawnObject(spawnPoints[nextSpawnerIndex], rnd.Next(0, numberOfEnemyTypes))
+                .arenaId = spawnPoints.IndexOf(spawnPoints[nextSpawnerIndex]);
 
             numEnemies++;
         }
 
         private void DecrementNumEnemies(int _arenaOfThatEnemy)
         {
-            emptyAreaSpawn.Add(spawnPoints[_arenaOfThatEnemy]);
-
+            emptySpawnPointsIndex.Enqueue(_arenaOfThatEnemy);
+            StartCoroutine(SpawnEnemies());
             numEnemies--;
         }
 
@@ -114,6 +102,12 @@ namespace Enemies {
             {
                 Gizmos.color = Color.yellow;
                 Gizmos.DrawWireSphere(spawnPoints[i].position, 1);
+            }
+
+            foreach (int index in emptySpawnPointsIndex)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawCube(spawnPoints[index].position, Vector3.one);
             }
         }
 #endif
