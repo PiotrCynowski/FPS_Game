@@ -1194,6 +1194,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e06d77746cfd24cb4c12ea6438eea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1742900186 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8773625551499053901, guid: 6516ec5f34a2a2444a6f92c6bb5d2691, type: 3}
+  m_PrefabInstance: {fileID: 735676649287841932}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1754311374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1707,6 +1718,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonResetPos
       objectReference: {fileID: 0}
+    - target: {fileID: 8799437246897878388, guid: 6516ec5f34a2a2444a6f92c6bb5d2691, type: 3}
+      propertyPath: buttonResetPlayerPos
+      value: 
+      objectReference: {fileID: 1742900186}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

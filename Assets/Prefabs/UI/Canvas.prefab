@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonBackFromPause: {fileID: 4600997951353222760}
-  buttonRestart: {fileID: 8773625551499053901}
+  buttonResetPlayerPos: {fileID: 8773625551499053901}
   buttonExitApp: {fileID: 7384594402786037234}
   panelPause: {fileID: 2609568574033257790}
 --- !u!1 &735676649346008476
@@ -381,7 +381,7 @@ GameObject:
   - component: {fileID: 371007826110060318}
   - component: {fileID: 8773625551499053901}
   m_Layer: 5
-  m_Name: ButtonRestart
+  m_Name: ButtonResetPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -993,4 +993,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Restart
+  m_Text: Reset
