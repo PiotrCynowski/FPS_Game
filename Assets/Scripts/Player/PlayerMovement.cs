@@ -94,15 +94,6 @@ namespace Player
             moveDirection = transform.right * _horizontalInput.x + transform.forward * _horizontalInput.y;
         }
 
-        public void OnJumpPressed()
-        {
-            if (isGrounded)
-            {
-                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-                rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-            }
-        }
-
         #region PowerUp
         private void EnablePowerup(int _addTimeToPuDuration)
         {
@@ -132,7 +123,25 @@ namespace Player
         }
         #endregion
 
-        #region player ground move
+        public void OnJumpFlyPressed()
+        {
+            if (isGrounded)
+            {
+                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            }
+            else
+            {
+                Debug.Log("Fly");
+            }
+        }
+
+        public void OnCrouchPressed()
+        {
+            Debug.Log("Crouch");
+        }
+
+        #region Player Ground Move
         private void ResetPlayerPosition()
         {
             if (!PlayerPrefs.HasKey(savedPlayerPositionKey)) return;

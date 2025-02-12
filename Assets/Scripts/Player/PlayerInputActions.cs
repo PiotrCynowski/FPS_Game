@@ -39,10 +39,19 @@ namespace GameInput
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""Jump/Fly"",
                     ""type"": ""Button"",
                     ""id"": ""0593e20e-53b6-4fa8-9ecc-58d6188f6022"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""ecb2201a-9bc8-43e4-94c9-6d20588593e2"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -87,7 +96,7 @@ namespace GameInput
                     ""name"": ""PauseMenu"",
                     ""type"": ""Button"",
                     ""id"": ""40dfeba8-ad33-428b-96ed-7eb6248d2b7e"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -101,7 +110,7 @@ namespace GameInput
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""Jump/Fly"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -214,6 +223,17 @@ namespace GameInput
                     ""action"": ""PauseMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5ce82d35-fed5-4385-8aab-c599d4711c65"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -223,7 +243,8 @@ namespace GameInput
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
-            m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+            m_Player_JumpFly = m_Player.FindAction("Jump/Fly", throwIfNotFound: true);
+            m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
             m_Player_MouseX = m_Player.FindAction("MouseX", throwIfNotFound: true);
             m_Player_MouseY = m_Player.FindAction("MouseY", throwIfNotFound: true);
             m_Player_Shot1 = m_Player.FindAction("Shot1", throwIfNotFound: true);
@@ -296,7 +317,8 @@ namespace GameInput
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Movement;
-        private readonly InputAction m_Player_Jump;
+        private readonly InputAction m_Player_JumpFly;
+        private readonly InputAction m_Player_Crouch;
         private readonly InputAction m_Player_MouseX;
         private readonly InputAction m_Player_MouseY;
         private readonly InputAction m_Player_Shot1;
@@ -307,7 +329,8 @@ namespace GameInput
             private @PlayerInputActions m_Wrapper;
             public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Movement => m_Wrapper.m_Player_Movement;
-            public InputAction @Jump => m_Wrapper.m_Player_Jump;
+            public InputAction @JumpFly => m_Wrapper.m_Player_JumpFly;
+            public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
             public InputAction @MouseX => m_Wrapper.m_Player_MouseX;
             public InputAction @MouseY => m_Wrapper.m_Player_MouseY;
             public InputAction @Shot1 => m_Wrapper.m_Player_Shot1;
@@ -325,9 +348,12 @@ namespace GameInput
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @Jump.started += instance.OnJump;
-                @Jump.performed += instance.OnJump;
-                @Jump.canceled += instance.OnJump;
+                @JumpFly.started += instance.OnJumpFly;
+                @JumpFly.performed += instance.OnJumpFly;
+                @JumpFly.canceled += instance.OnJumpFly;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
                 @MouseX.started += instance.OnMouseX;
                 @MouseX.performed += instance.OnMouseX;
                 @MouseX.canceled += instance.OnMouseX;
@@ -350,9 +376,12 @@ namespace GameInput
                 @Movement.started -= instance.OnMovement;
                 @Movement.performed -= instance.OnMovement;
                 @Movement.canceled -= instance.OnMovement;
-                @Jump.started -= instance.OnJump;
-                @Jump.performed -= instance.OnJump;
-                @Jump.canceled -= instance.OnJump;
+                @JumpFly.started -= instance.OnJumpFly;
+                @JumpFly.performed -= instance.OnJumpFly;
+                @JumpFly.canceled -= instance.OnJumpFly;
+                @Crouch.started -= instance.OnCrouch;
+                @Crouch.performed -= instance.OnCrouch;
+                @Crouch.canceled -= instance.OnCrouch;
                 @MouseX.started -= instance.OnMouseX;
                 @MouseX.performed -= instance.OnMouseX;
                 @MouseX.canceled -= instance.OnMouseX;
@@ -388,7 +417,8 @@ namespace GameInput
         public interface IPlayerActions
         {
             void OnMovement(InputAction.CallbackContext context);
-            void OnJump(InputAction.CallbackContext context);
+            void OnJumpFly(InputAction.CallbackContext context);
+            void OnCrouch(InputAction.CallbackContext context);
             void OnMouseX(InputAction.CallbackContext context);
             void OnMouseY(InputAction.CallbackContext context);
             void OnShot1(InputAction.CallbackContext context);

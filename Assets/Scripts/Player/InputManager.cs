@@ -25,7 +25,8 @@ namespace GameInput
             playerActions = controls.Player;
 
             playerActions.Movement.performed += ctx => horizontalInput = ctx.ReadValue<Vector2>();
-            playerActions.Jump.performed += _ => movement.OnJumpPressed();
+            playerActions.JumpFly.performed += _ => movement.OnJumpFlyPressed();
+            playerActions.Crouch.performed += _ => movement.OnCrouchPressed();
 
             playerActions.MouseX.performed += ctx => mouseInput.x = ctx.ReadValue<float>();
             playerActions.MouseY.performed += ctx => mouseInput.y = ctx.ReadValue<float>();
@@ -47,8 +48,6 @@ namespace GameInput
         {
             movement.ReceiveInput(horizontalInput);
             mouseLook.ReceiveInput(mouseInput);
-
-            Debug.Log(mouseInput);
         }
 
         private void OnDisable()
