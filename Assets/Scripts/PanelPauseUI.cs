@@ -8,12 +8,12 @@ namespace UI.Elements
     public class PanelPauseUI : MonoBehaviour
     {
         [SerializeField] private Button buttonBackFromPause;
-        [SerializeField] private Button buttonRestart;
+        [SerializeField] private Button buttonResetPlayerPos;
         [SerializeField] private Button buttonExitApp;
 
         [SerializeField] private GameObject panelPause;
         public static Action OnPlayerPauseMenuOff;
-        public static Action OnPlayerRestart;
+        public static Action OnPlayerReset;
 
         private void OnEnable()
         {
@@ -23,7 +23,7 @@ namespace UI.Elements
         private void Start()
         {
             buttonBackFromPause.onClick.AddListener(() => BackFromPause());
-            buttonRestart.onClick.AddListener(() => RestartGame());
+            buttonResetPlayerPos.onClick.AddListener(() => ResetPlayerPos());
             buttonExitApp.onClick.AddListener(() => ExitGame());
         }
 
@@ -46,10 +46,10 @@ namespace UI.Elements
             OnPlayerPauseMenuOff?.Invoke();
         }
 
-        private void RestartGame()
+        private void ResetPlayerPos()
         {
             BackFromPause();
-            OnPlayerRestart?.Invoke();
+            OnPlayerReset?.Invoke();
         }
 
         private void ExitGame()

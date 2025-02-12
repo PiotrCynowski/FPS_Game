@@ -47,7 +47,7 @@ namespace Player
         private void OnEnable()
         {
             PlayerInteractions.onMovementBoost += EnablePowerup;
-            PanelPauseUI.OnPlayerRestart += ResetPlayerPosition;
+            PanelPauseUI.OnPlayerReset += ResetPlayerPosition;
         }
 
         private void Start()
@@ -86,7 +86,7 @@ namespace Player
         private void OnDisable()
         {
             PlayerInteractions.onMovementBoost -= EnablePowerup;
-            PanelPauseUI.OnPlayerRestart -= ResetPlayerPosition;
+            PanelPauseUI.OnPlayerReset -= ResetPlayerPosition;
         }
 
         public void ReceiveInput(Vector2 _horizontalInput)

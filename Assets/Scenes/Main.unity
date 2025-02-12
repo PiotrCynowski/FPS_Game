@@ -1699,6 +1699,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 950797980682641994, guid: 6516ec5f34a2a2444a6f92c6bb5d2691, type: 3}
+      propertyPath: m_Text
+      value: Reset
+      objectReference: {fileID: 0}
+    - target: {fileID: 1995713505263780025, guid: 6516ec5f34a2a2444a6f92c6bb5d2691, type: 3}
+      propertyPath: m_Name
+      value: ButtonResetPos
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2267,7 +2275,7 @@ PrefabInstance:
       objectReference: {fileID: 1083414293277182383, guid: 49381714093bfa14899ca08a7a35e55d, type: 3}
     - target: {fileID: 8682113146543154255, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
       propertyPath: maxAllowedEnemiesAtOnce
-      value: 8
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8682113147364049008, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
       propertyPath: m_LocalPosition.x

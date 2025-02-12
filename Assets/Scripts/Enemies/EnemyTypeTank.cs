@@ -16,12 +16,10 @@ namespace Enemies
             StartCoroutine(Wander());
         }
 
-
         private void OnDisable()
         {
             StopAllCoroutines();
         }
-
 
         private IEnumerator Wander()
         {
