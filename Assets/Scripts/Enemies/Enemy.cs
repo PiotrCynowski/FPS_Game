@@ -24,6 +24,7 @@ namespace Enemies
         public virtual void OnEnable()
         {
             startArenaPos = transform.position;
+            targetPosition = startArenaPos;
 
             currentHealth = MaxHealth;
             UpdateColor();
