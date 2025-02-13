@@ -1194,17 +1194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e06d77746cfd24cb4c12ea6438eea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1742900186 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8773625551499053901, guid: 6516ec5f34a2a2444a6f92c6bb5d2691, type: 3}
-  m_PrefabInstance: {fileID: 735676649287841932}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1754311374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1710,18 +1699,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 950797980682641994, guid: 6516ec5f34a2a2444a6f92c6bb5d2691, type: 3}
-      propertyPath: m_Text
-      value: Reset
-      objectReference: {fileID: 0}
-    - target: {fileID: 1995713505263780025, guid: 6516ec5f34a2a2444a6f92c6bb5d2691, type: 3}
-      propertyPath: m_Name
-      value: ButtonResetPos
-      objectReference: {fileID: 0}
-    - target: {fileID: 8799437246897878388, guid: 6516ec5f34a2a2444a6f92c6bb5d2691, type: 3}
-      propertyPath: buttonResetPlayerPos
-      value: 
-      objectReference: {fileID: 1742900186}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2196,49 +2173,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 807346712, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 33
-      objectReference: {fileID: 0}
-    - target: {fileID: 807346712, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1178206744, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1178206744, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 5.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1178206744, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 22
-      objectReference: {fileID: 0}
-    - target: {fileID: 1408966159, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 33
-      objectReference: {fileID: 0}
-    - target: {fileID: 1408966159, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8682113145759169878, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8682113145759169878, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -9
-      objectReference: {fileID: 0}
     - target: {fileID: 8682113146543154248, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 8682113146543154254, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8682113146543154254, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2279,26 +2216,6 @@ PrefabInstance:
     - target: {fileID: 8682113146543154254, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8682113146543154255, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
-      propertyPath: toSpawn.Array.data[0]
-      value: 
-      objectReference: {fileID: 48837558022756417, guid: d4055bcb207503943ab48836151b70e5, type: 3}
-    - target: {fileID: 8682113146543154255, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
-      propertyPath: toSpawn.Array.data[1]
-      value: 
-      objectReference: {fileID: 1083414293277182383, guid: 49381714093bfa14899ca08a7a35e55d, type: 3}
-    - target: {fileID: 8682113146543154255, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
-      propertyPath: maxAllowedEnemiesAtOnce
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8682113147364049008, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8682113147364049008, guid: 39682f58782936548a7d49a2f02c8ea8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

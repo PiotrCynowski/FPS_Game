@@ -57,19 +57,18 @@ namespace Player
 
             rayDistance = playerHeight / 2 + 0.5f;
 
-            powerupMultiply = 1 + (powerupPercentageMultiply / 100);
-            powerupDivide = 1 / powerupMultiply;
+            CalculatePowerupValues();
 
             stateOfPlayer = new PlayerState();
 
             Vector3 playerPos = transform.position;
-            PlayerPrefs.SetString(savedPlayerPositionKey, $"{playerPos.x},{playerPos.y},{playerPos.z}");
+            PlayerPrefs.SetFloat("playerPosX", playerPos.x);
+            PlayerPrefs.SetFloat("playerPosY", playerPos.y);
+            PlayerPrefs.SetFloat("playerPosZ", playerPos.z);
         }
 
         private void Update()
         {
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
             if (isSlope)
                 slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
 
@@ -80,6 +79,7 @@ namespace Player
 
         private void FixedUpdate()
         {
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
             MovePlayer();
         }
 
@@ -95,6 +95,12 @@ namespace Player
         }
 
         #region PowerUp
+        private void CalculatePowerupValues()
+        {
+            powerupMultiply = 1 + (powerupPercentageMultiply / 100);
+            powerupDivide = 1 / powerupMultiply;
+        }
+
         private void EnablePowerup(int _addTimeToPuDuration)
         {
             movementBoostDuration += _addTimeToPuDuration;
@@ -120,6 +126,7 @@ namespace Player
             targetSpeed *= powerupDivide;
             jumpForce *= powerupDivide;
             AbyssDistanceCheck *= 0.5f;
+            movementBoost = null;
         }
         #endregion
 
@@ -144,16 +151,10 @@ namespace Player
         #region Player Ground Move
         private void ResetPlayerPosition()
         {
-            if (!PlayerPrefs.HasKey(savedPlayerPositionKey)) return;
-
-            string[] values = PlayerPrefs.GetString(savedPlayerPositionKey).Split(',');
-            if (values.Length == 3 &&
-                float.TryParse(values[0], out float x) &&
-                float.TryParse(values[1], out float y) &&
-                float.TryParse(values[2], out float z))
-            {
-                transform.position = new Vector3(x, y, z);
-            }
+            float x = PlayerPrefs.GetFloat("playerPosX", 0f);
+            float y = PlayerPrefs.GetFloat("playerPosY", 0f);
+            float z = PlayerPrefs.GetFloat("playerPosZ", 0f);
+            transform.position = new Vector3(x, y, z);
         }
 
         private void MovePlayer()
@@ -177,21 +178,17 @@ namespace Player
         {
             if (isGrounded)
             {
-                currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, acceleration * Time.deltaTime);
-            }
-
-            if(moveDirection.magnitude == 0)
-            {
-                currentSpeed = 0;
-
-                if (isGrounded)
+                if (moveDirection.magnitude > 0)
                 {
-                    stateOfPlayer.CurrentState = PlayerState.PlayerDefinedStates.Idle;
-                    return;
+                    currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, acceleration * Time.deltaTime);
+                }
+                else
+                {
+                    currentSpeed = Mathf.Lerp(currentSpeed, 0, acceleration * Time.deltaTime); // Smooth deceleration
                 }
             }
 
-            stateOfPlayer.CurrentState = isGrounded ? PlayerState.PlayerDefinedStates.Walking : PlayerState.PlayerDefinedStates.Jumping;
+            stateOfPlayer.CurrentState = isGrounded ? (moveDirection.magnitude > 0 ? PlayerState.PlayerDefinedStates.Walking : PlayerState.PlayerDefinedStates.Idle) : PlayerState.PlayerDefinedStates.Jumping;
         }
 
         private bool IsNotAbyss()
@@ -202,18 +199,7 @@ namespace Player
 
         private bool DetectSlope()
         {
-            if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, rayDistance, groundMask))
-            {
-                if (slopeHit.normal != Vector3.up)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            return false;
+           return Physics.Raycast(transform.position, Vector3.down, out slopeHit, rayDistance, groundMask) && slopeHit.normal != Vector3.up;
         }
         #endregion
     }
