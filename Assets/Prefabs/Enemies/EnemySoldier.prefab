@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c84a7747ae0f684a9c147db83c157ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 50
+  MaxHealth: 250
   startArenaPos: {x: 0, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
   arenaId: 0
