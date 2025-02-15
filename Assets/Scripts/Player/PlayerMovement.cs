@@ -129,6 +129,15 @@ namespace Player
         }
         #endregion
 
+        public void OnJumpPressed()
+        {
+            if (isGrounded)
+            {
+                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            }
+        }
+
         #region Player Ground Move
         private void ResetPlayerPosition()
         {

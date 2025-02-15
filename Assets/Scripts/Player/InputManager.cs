@@ -25,6 +25,7 @@ namespace GameInput
             playerActions = controls.Player;
 
             playerActions.Movement.performed += ctx => horizontalInput = ctx.ReadValue<Vector2>();
+            playerActions.Jump.performed += ctx => movement.OnJumpPressed();
 
             playerActions.MouseX.performed += ctx => mouseInput.x = ctx.ReadValue<float>();
             playerActions.MouseY.performed += ctx => mouseInput.y = ctx.ReadValue<float>();
