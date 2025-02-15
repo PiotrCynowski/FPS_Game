@@ -8,7 +8,7 @@ namespace Enemies
     {
         public int MaxHealth;
         private int currentHealth;
-        private Renderer renderer;
+        private Renderer rend;
         private MaterialPropertyBlock propertyBlock;
 
         [HideInInspector] public Vector3 startArenaPos;
@@ -30,8 +30,8 @@ namespace Enemies
         }
 
         private void Awake()
-        {    
-            renderer = GetComponent<Renderer>();
+        {
+            rend = GetComponent<Renderer>();
             propertyBlock = new MaterialPropertyBlock();
         }
 
@@ -82,7 +82,7 @@ namespace Enemies
                 propertyBlock.SetColor("_Color", Color.Lerp(Color.red, Color.yellow, healthPercentage * 2f));
             }
 
-            renderer.SetPropertyBlock(propertyBlock);
+            rend.SetPropertyBlock(propertyBlock);
         }
     }
 }

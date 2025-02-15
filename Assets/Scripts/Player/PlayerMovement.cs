@@ -17,7 +17,6 @@ namespace Player
         private Vector3 moveDirection;
         private Vector3 slopeMoveDirection;
         private Vector3 detectAbyssPos;
-        private readonly string savedPlayerPositionKey = "playerPosition";
 
         private PlayerState stateOfPlayer;
 
@@ -129,24 +128,6 @@ namespace Player
             movementBoost = null;
         }
         #endregion
-
-        public void OnJumpFlyPressed()
-        {
-            if (isGrounded)
-            {
-                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-                rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-            }
-            else
-            {
-                Debug.Log("Fly");
-            }
-        }
-
-        public void OnCrouchPressed()
-        {
-            Debug.Log("Crouch");
-        }
 
         #region Player Ground Move
         private void ResetPlayerPosition()
